@@ -12,8 +12,8 @@ var server = http.createServer(function(req, res) {
         req.on('data', function (data) {
             body += data;
             data = JSON.parse(body);
-            console.log('*****************************************************')
-            console.log(body);
+            // console.log('*****************************************************')
+            // console.log(body);
             // for (let i = 0; i < data.length; i++){
             //     console.log(data[i].id)
             //     // console.log('*******')
@@ -27,12 +27,12 @@ var server = http.createServer(function(req, res) {
                 request.get(
                     url_mongoDB,
                     function (error, response, body) {
-                        console.log(body);
-                        console.log('**************************')
-                        console.log(JSON.parse(body)[0]);
-                        console.log('**************************')
-                        console.log(JSON.parse(body)[0].text);
-                        console.log('**************************');
+                        // console.log(body);
+                        // console.log('**************************')
+                        // console.log(JSON.parse(body)[0]);
+                        // console.log('**************************')
+                        // console.log(JSON.parse(body)[0].text);
+                        // console.log('**************************');
                         // console.log(body);
                         if (!error && response.statusCode == 200) {
                             res.writeHead(200, { 'Content-Type': 'application/json' });
