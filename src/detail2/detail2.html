@@ -1,0 +1,57 @@
+<!--<h1>Testovaci funguje!</h1>-->
+
+<!--<p><a class="btn btn-primary btn-lg" role="button" (click)="back()">Back on main page</a></p>-->
+
+
+<h1>Model-based Form</h1>
+<!--https://scotch.io/tutorials/using-angular-2s-template-driven-forms-->
+<!--<form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)">-->
+<!-- we will place our fields here -->
+
+<!--[formGroup]="myForm" autocomplete="off" novalidate-->
+
+<!--name-->
+<div class="forum jumbotron center-block">
+  <form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+
+    <table>
+      <!--<tr>-->
+
+      <!--<div class="form-group">-->
+      <!--<td><label>User:</label></td>-->
+      <!--<td><input type="text" formControlName="firstName"></td>-->
+      <!--</div>-->
+      <!--</tr>-->
+      <!--<tr>-->
+      <!--<div class="form-group">-->
+      <!--<td><label>Thread:</label></td>-->
+      <!--<td><input type="text" formControlName="thread"></td>-->
+      <!--</div>-->
+      <!--</tr>-->
+      <tr>
+        <div class="form-group">
+          <td><label>Title:</label></td>
+          <td><input size="50" type="text" formControlName="title"></td>
+        </div>
+      </tr>
+      <tr>
+        <div class="form-group">
+          <td><label>Message:</label></td>
+          <td><textarea formControlName="message" rows="4" cols="80"></textarea></td>
+        </div>
+      </tr>
+      <tr>
+        <div class="form-group">
+          <td>
+            <button type="submit" [disabled]="!myForm.valid">Submit</button>
+          </td>
+          <td>
+            <button (click)="reset()">Reset form</button>
+          </td>
+        </div>
+      </tr>
+    </table>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="back()">Back on main page</a></p>
+
+  </form>
+</div>

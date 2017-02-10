@@ -1,0 +1,18 @@
+.red {
+  color: red;
+}
+
+.forum {
+  width: 70%;
+}
+
+table td
+{
+  table-layout:fixed;
+  width:90px;
+  overflow:hidden;
+  word-wrap:break-word;
+  vertical-align:top;
+}
+
+

@@ -1,0 +1,31 @@
+.red {
+  color: red;
+}
+
+.forum {
+  width: 130%;
+}
+
+
+p.response {
+  font-size: 80%;
+}
+
+span {
+  color: #000000; /* Change this with links color*/
+  cursor: pointer;
+  text-decoration: underline;
+}
+span:hover {
+  color: #444444; /* Change the value to with anchors hover color*/
+}
+
+table td
+{
+
+  width:950px;
+  overflow:hidden;
+
+}
+
+
