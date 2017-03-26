@@ -112,13 +112,13 @@ export class Testovaci {
   onPromiseGet(){
     // var output = this._http.get("http://jsonplaceholder.typicode.com/users")
     //+++++++++++++++++++++++++++++++++++++++++++++++
-    let params = new URLSearchParams();
-    params.set('id', '29');
-    this._http.get("http://127.0.0.2:3001/get_one_thread", { search: params })
-      .toPromise()
-      .then((response) => {
-        this.getPromiseData = response.text();
-      });
+    // let params = new URLSearchParams();
+    // params.set('id', '29');
+    // this._http.get("http://127.0.0.2:3001/get_one_thread", { search: params })
+    //   .toPromise()
+    //   .then((response) => {
+    //     this.getPromiseData = response.text();
+    //   });
     //+++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++
     // this._http.get("http://127.0.0.2:3001/get_users")
@@ -128,19 +128,19 @@ export class Testovaci {
     //   });
     //+++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++
-    // var json = JSON.stringify({
-    //   user: 'petr',
-    //   passw: '12345'
-    // });
-    // var params = 'data=' + json;
-    // var header = new Headers();
-    // header.append('Content-type', 'application/x-www-form-urlencoded');
-    //
-    // this._http.post("http://127.0.0.2:3001/get_one_user", params, {headers:header} )//'data='+JSON.stringify(jj)
-    //   .toPromise()
-    //   .then((response) => {
-    //     this.getPromiseData = response.text();
-    //   });
+    var json = JSON.stringify({
+      user: 'petr',
+      passw: '12345'
+    });
+    var params = 'data=' + json;
+    var header = new Headers();
+    header.append('Content-type', 'application/x-www-form-urlencoded');
+
+    this._http.post("http://127.0.0.2:3001/get_one_user", params, {headers:header} )//'data='+JSON.stringify(jj)
+      .toPromise()
+      .then((response) => {
+        this.getPromiseData = response.text();
+      });
     //+++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++
     // let params = new URLSearchParams();

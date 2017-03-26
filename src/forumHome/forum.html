@@ -10,7 +10,7 @@
 <!--***************************************************************************-->
 <h1> Forum in Angular2 </h1>
 <div class="forum jumbotron center-block">
-  <h2>Welcome user {{ userLogName }}</h2>
+  <h2>Welcome user {{ userLogName }} {{ userLogID }}</h2>
   <h3>Threads</h3>
   <div *ngIf="threads_error">An error occurred while loading the foods!</div>
   <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>

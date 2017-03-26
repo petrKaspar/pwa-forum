@@ -401,11 +401,11 @@ var server = http.createServer(function(req, res) {
          }]
          });
          */
-        var qqq = {data: [{id: "11"}]}
-
-        var request = require('request');
-        var body = '';
-        var data = {};
+        // var qqq = {data: [{id: "11"}]}
+        //
+        // var request = require('request');
+        // var body = '';
+        // var data = {};
 
     //     var url_mongoDB = 'http://private-bd1632-forum13.apiary-mock.com/getThreads';
     //     request.get(
@@ -459,5 +459,5 @@ var server = http.createServer(function(req, res) {
     // }
 
 });
-server.listen(process.env.PORT);
-// server.listen(3001, "127.0.0.2");
+// server.listen(process.env.PORT);
+server.listen(3001, "127.0.0.2");

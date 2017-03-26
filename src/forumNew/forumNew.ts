@@ -56,7 +56,7 @@ export class ForumNew {
 
   addThread(){
     var json = JSON.stringify({
-      id_author: '5',
+      id_author: this.currentUser.id,
       last_update: (new Date().valueOf() / 1000 | 0).toString(),
       title: this.myForm.value.title,
       text: this.myForm.value.message

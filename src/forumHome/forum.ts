@@ -38,6 +38,7 @@ export class Forum implements OnInit{
   response2: string;
   response3: string;
   userLogName: string;
+  userLogID: string;
   selectedThread: Thread;
   url: string = 'http://private-bd1632-forum13.apiary-mock.com/getThreads';
   // url: string = 'http://forumpwa.eu-2.evennode.com';
@@ -70,6 +71,7 @@ export class Forum implements OnInit{
   ){
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
      this.userLogName = this.currentUser.username + '';
+     this.userLogID = this.currentUser.id + '';
     // this.userLogName = routeParams.params;
     // this.route.queryParams.subscribe(params => {
     //   this.userLogName = params["username"];

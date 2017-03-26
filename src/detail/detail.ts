@@ -79,16 +79,18 @@ export class Detail implements OnInit, OnDestroy  {
         let responseJson = JSON.parse(response.text()) ;
 
         this.title2 = responseJson.title;
-        this.id_author = responseJson.id_author;
         this.last_update = new Date(responseJson.last_update.valueOf() * 1000).toLocaleString() ;
-        // this.last_update = responseJson.last_update ;
         this.text = responseJson.text;
 
+        params = new URLSearchParams();
+        params.set('id', responseJson.id_author);
+        this.http.get("http://127.0.0.2:3001/get_userByID", { search: params })
+          .toPromise()
+          .then((response2) => {
+            this.id_author = JSON.parse(response2.text())[0].user;
+          });
+
       });
-
-
-
-
 
     //
     // let query = "q={\"id\": \""+this.id+"\"}";
