@@ -8,6 +8,7 @@ import {Detail2} from './detail2';
 import {Forum} from './forumHome';
 import {ForumNew} from './forumNew';
 import {Detail} from './detail';
+// import {HTTPTestComponent} from './HTTPTestComponent';
 
 export const routes: Routes = [
   { path: '',       component: Login },
@@ -25,5 +26,6 @@ export const routes: Routes = [
   { path: 'forumHome',   component: Forum},
   { path: 'detail/:id',   component: Detail},
   { path: 'forumNew',   component: ForumNew},
+  // { path: 'HTTPTestComponent',   component: HTTPTestComponent},
   { path: '**',     component: Login }
 ];

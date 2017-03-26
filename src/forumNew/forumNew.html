@@ -33,7 +33,7 @@
       <tr>
         <div class="form-group">
           <td>
-            <button type="submit" [disabled]="!myForm.valid">Submit</button>
+            <button type="submit" [disabled]="!myForm.valid" (click)="addThread()">Submit</button>
           </td>
           <td>
             <button (click)="reset()">Reset form</button>

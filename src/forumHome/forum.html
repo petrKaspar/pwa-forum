@@ -15,16 +15,16 @@
   <div *ngIf="threads_error">An error occurred while loading the foods!</div>
   <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
   <p><a class="btn btn-primary btn-lg" role="button" style="align-content: center" (click)="addThread()">Add New Thread</a></p>
-  <p><a class="btn btn-primary btn-lg" role="button" (click)="showResponse()">Refresh</a></p>
+  <p><a class="btn btn-primary btn-lg" role="button" (click)="getThreads()">Refresh</a></p>
 
 
   <table>
 
     <!--, thread.title, thread.title, thread.id_author, thread.last_update, thread.text-->
     <ul>
-      <tr><li *ngFor="let thread of myThreads" (click)="onSelect(thread.id)">
-        <td><h4><span> {{ thread.id }}. <b>{{thread.title }}</b> , last update: {{thread.last_update }}  </span></h4></td>
-        <td> <button class="delete-button" disabled>Delete</button> </td>
+      <tr><li *ngFor="let thread of myThreads" >
+        <td><h4><span (click)="onSelect(thread.id)"> {{ thread.id }}. <b>{{thread.title }}</b> , last update: {{thread.last_update.valueOf() * 1000 | date: "short" }}  </span></h4></td>
+        <td> <button class="delete-button" (click)="deleteThread( thread.id )" >Delete</button> </td>
 
       </li></tr>
     </ul>

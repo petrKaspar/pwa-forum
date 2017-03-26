@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Http } from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -28,14 +28,14 @@ export class ForumNew {
   message = new FormControl('', Validators.required);
   thread = new FormControl('', Validators.required);
 
-  constructor(fb: FormBuilder, private router: Router) {
+  constructor(fb: FormBuilder, private router: Router, public http: Http,) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     // this.firstName.setValue(this.currentUser.username+'');
     this.myForm = fb.group({
-      'firstName': this.firstName,
+      // 'firstName': this.firstName,
       'message': this.message,
-      'title': this.title,
-      'thread': this.thread
+      'title': this.title
+      // 'thread': this.thread
     });
 
   }
@@ -52,6 +52,26 @@ export class ForumNew {
   }
   back(){
     this.router.navigate(['forumHome']);
+  }
+
+  addThread(){
+    var json = JSON.stringify({
+      id_author: '5',
+      last_update: (new Date().valueOf() / 1000 | 0).toString(),
+      title: this.myForm.value.title,
+      text: this.myForm.value.message
+    });
+    var params = 'data=' + json;
+    var header = new Headers();
+    header.append('Content-type', 'application/x-www-form-urlencoded');
+
+    this.http.post("http://127.0.0.2:3001/add_thread", params, {headers:header} )//'data='+JSON.stringify(jj)
+      .toPromise()
+      .then((response) => {
+        this.back();
+        //this.getPromiseData = response.text();
+      });
+
   }
 
 }

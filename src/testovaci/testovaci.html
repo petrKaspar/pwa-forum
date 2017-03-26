@@ -1,3 +1,11 @@
 <h1>Testovaci funguje!</h1>
 
 <p><a class="btn btn-primary btn-lg" role="button" (click)="back()">Back on main page</a></p>
+
+<h1>HTTP Test</h1>
+<button (click)="onGet()">Get Data</button><br/>
+<div>Output:{{getData}}</div><br/>
+<button (click) = "onPost()">Post Data</button><br/>
+<div>Output:{{postData}}</div><br/>
+<button (click) = "onPromiseGet()">Get Data(w Promise)</button><br/>
+<div>Output:{{getPromiseData}}</div><br/>

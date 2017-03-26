@@ -15,6 +15,7 @@ import { Detail2 } from './detail2';
 import { Forum } from './forumHome';
 import { ForumNew } from './forumNew';
 import { Detail } from './detail';
+//import { httpTestComponent } from './HTTPTestComponent';
 import { App } from './app';
 
 import { routes } from './app.routes';
@@ -22,7 +23,7 @@ import { routes } from './app.routes';
 @NgModule({
   bootstrap: [App],
   declarations: [
-    Home, Login, Signup, Testovaci, Detail2, Forum, ForumNew, Detail, App
+    Home, Login, Signup, Testovaci, Detail2, Forum, ForumNew, Detail,  App
   ],
   imports: [
     HttpModule, BrowserModule, FormsModule, ReactiveFormsModule,

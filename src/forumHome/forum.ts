@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Http, Response, Headers, RequestOptions, URLSearchParams} from '@angular/http';
 import {Router, ActivatedRoute} from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -11,7 +11,7 @@ const template = require('./forum.html');
 
 import 'rxjs/add/operator/toPromise';
 import {contentHeaders} from "../common/headers";
-import {Observable} from "rxjs";
+// import {Observable} from "rxjs";
 
 
 export interface type{
@@ -123,6 +123,27 @@ export class Forum implements OnInit{
 
 
   getThreads() {
+
+    this.http.get("http://127.0.0.2:3001/get_threads")
+      .toPromise()
+      .then((response) => {
+        // this.getData = response.text();
+        // this.getData = JSON.parse(response.text())[0].title;
+
+        this.myThreads = [];
+        let responseJson = JSON.parse(response.text()) ;
+        let i = 0;
+        for (i = 0; i < responseJson.length; i++){
+          this.myThreads.push(
+            {id: responseJson[i].id,
+              id_author: responseJson[i].id_author,
+              last_update: responseJson[i].last_update,
+              title: responseJson[i].title,
+              text: responseJson[i].text} );
+        }
+
+      });
+
     // this._demoService.getFoods().subscribe(
     //   data => { this.threads = data},
     //   err => { this.threads_error = true }
@@ -141,6 +162,7 @@ export class Forum implements OnInit{
     // var parsed_result = JSON.parse(this.response);
     // this.response2 = this.response.json();
 
+    /**********************************************************************************************
 var a = '[ { "_id" : { "$oid" : "589cd22ac2ef162b33d7a296"} , "id" : "1" , "id_author" : "2" , "last_update" : "1482965255" , "title" : "Lorem ipsum dolor " , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"} , { "_id" : { "$oid" : "589cd248bd966f2cc1c43eaf"} , "id" : "2" , "id_author" : "1" , "last_update" : "1482965259" , "title" : "Lorem ipsum gaude" , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"}]'
 
     this.myThreads = [
@@ -160,7 +182,7 @@ var a = '[ { "_id" : { "$oid" : "589cd22ac2ef162b33d7a296"} , "id" : "1" , "id_a
           title: responseJson[i].title,
           text: responseJson[i].text} );
     }
-
+*///////////////////////////////////////////////////////////////////////////////////////////////////////
     // this.myThreads.push( {id: 5, id_author: 3, last_update: '36698', title: 'EEEEEEEEEEEE', text: 'Sentence 444444444444'} )
 
 
@@ -182,7 +204,16 @@ var a = '[ { "_id" : { "$oid" : "589cd22ac2ef162b33d7a296"} , "id" : "1" , "id_a
 
 
   }
-
+  deleteThread(id): void {
+    let params = new URLSearchParams();
+    params.set('id', id);
+    this.http.get("http://127.0.0.2:3001/delete_thread", { search: params })
+      .toPromise()
+      .then((response) => {
+        this.response2 = response.text();
+        this.getThreads();
+      });
+  }
   showResponse() {
       /*
        { "data": [ { "id": "1", "id_author": "5", "last_update": "2015-08-05T08:40:51.620Z", "title": "title 1", "text": "asdf asdf asdf asdfasddfiiiiiiiii yui p", },
@@ -353,34 +384,60 @@ var a = '[ { "_id" : { "$oid" : "589cd22ac2ef162b33d7a296"} , "id" : "1" , "id_a
       //this.myThreads = null;
       // For non-protected routes, just use Http
   //    this.http.get(url).toPromise()
+
+
+
+      // this.http.get("http://127.0.0.2:3001/get_threads")
+      //   .toPromise()
+      //   .then((response) => {
+      //     // this.getData = response.text();
+      //     // this.getData = JSON.parse(response.text())[0].title;
+      //
+      //     this.myThreads = [];
+      //     let responseJson = JSON.parse(response.text()) ;
+      //     let i = 0;
+      //     for (i = 0; i < responseJson.length; i++){
+      //       this.myThreads.push(
+      //         {id: responseJson[i].id,
+      //           id_author: responseJson[i].id_author,
+      //           last_update: responseJson[i].last_update,
+      //           title: responseJson[i].title,
+      //           text: responseJson[i].text} );
+      //     }
+      //
+      //   });
+
+
+
+
 //      --------------------------------------------------------------------------------------------
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-
-      var get_threads = { json: {action: "get_threads"} };
-      // this.http.post('http://127.0.0.2:3001/', JSON.stringify({ action: 'get_threads'}), headers).toPromise()
-      // this.http.get(url).toPromise()
-      this.http.get('https://api.mlab.com/api/1/databases/backend_pwa/collections/threads?apiKey=9I-wGKTgFqP8A5IJ6zP_jKl0Phgz5B9r').toPromise()
-      // this.http.get('http://127.0.0.2:3001/').toPromise()
-        .then(response => {
-          this.response2 = response.text();
-          // console.log('----------------- '+response.text() );
-
-          // var aaa = '{[ { "_id" : { "$oid" : "589cd22ac2ef162b33d7a296"} , "id" : "1" , "id_author" : "2" , "last_update" : "1482965255" , "title" : "Lorem ipsum dolor " , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"} , { "_id" : { "$oid" : "589cd248bd966f2cc1c43eaf"} , "id" : "2" , "id_author" : "1" , "last_update" : "1482965259" , "title" : "Lorem ipsum gaude" , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"} , { "_id" : { "$oid" : "589cd264c2ef162b33d7a2d7"} , "id" : "3" , "id_author" : "1" , "last_update" : "1482965321" , "title" : "Consectetur adipiscing " , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"} , { "_id" : { "$oid" : "589cd28bbd966f2cc1c43f43"} , "id" : "4" , "id_author" : "1" , "last_update" : "1482965339" , "title" : " Laboris nisi ut" , "text" : "ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat"} , { "_id" : { "$oid" : "589cd29dbd966f2cc1c43f58"} , "id" : "5" , "id_author" : "3" , "last_update" : "1482965439" , "title" : " Duis aute irure " , "text" : "ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat"} , { "_id" : { "$oid" : "589cd2c6c2ef162b33d7a528"} , "id" : "6" , "id_author" : "1" , "last_update" : "1482965439" , "title" : "Excepteur sint occaecat " , "text" : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"} , { "_id" : { "$oid" : "589cd2e3bd966f2cc1c4442a"} , "id" : "7" , "id_author" : "2" , "last_update" : "1482965439" , "title" : "Sed ut perspiciatis unde omnis iste" , "text" : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto"} , { "_id" : { "$oid" : "589cd306bd966f2cc1c44444"} , "id" : "8" , "id_author" : "3" , "last_update" : "1482965589" , "title" : "Nemo enim ipsam voluptatem quia" , "text" : "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt"} , { "_id" : { "$oid" : "589cd323bd966f2cc1c4445f"} , "id" : "9" , "id_author" : "4" , "last_update" : "1482965799" , "title" : "Neque porro quisquam est" , "text" : "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem"} , { "_id" : { "$oid" : "589cd34cc2ef162b33d7a5a6"} , "id" : "10" , "id_author" : "3" , "last_update" : "1482966099" , "title" : "At vero eos et accusamus et iusto odio dignissimos " , "text" : "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga"} , { "_id" : { "$oid" : "589cd367c2ef162b33d7a5c2"} , "id" : "11" , "id_author" : "1" , "last_update" : "1482966199" , "title" : "Et harum quidem rerum " , "text" : "Et harum quidem rerum facilis est et expedita distinctio, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga"} , { "_id" : { "$oid" : "589cd3c6c2ef162b33d7a63a"} , "id" : "14" , "id_author" : "1" , "last_update" : "1482966389" , "title" : "officia deserunt mollitia animi" , "text" : "similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."} , { "_id" : { "$oid" : "589cd3ccc2ef162b33d7a640"} , "id" : "15" , "id_author" : "1" , "last_update" : "1482966389" , "title" : "officia deserunt mollitia animi" , "text" : "similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."} , { "_id" : { "$oid" : "589cd3e4bd966f2cc1c4452c"} , "id" : "16" , "id_author" : "2" , "last_update" : "1482966399" , "title" : "similique sunt in deserunt mollitia animi" , "text" : "similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."} , { "_id" : { "$oid" : "589cd384bd966f2cc1c444b1"} , "id" : "12" , "id_author" : "5" , "last_update" : "1482966199" , "title" : "Itaque earum rerum hic tenetur" , "text" : "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat"} , { "_id" : { "$oid" : "589cd3aabd966f2cc1c444e4"} , "id" : "13" , "id_author" : "6" , "last_update" : "1482966339" , "title" : "Blanditiis praesentium" , "text" : "dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident"} ]}'
-
-          this.myThreads = [];
-          let responseJson = JSON.parse(this.response2) ;
-          let i = 0;
-          for (i = 0; i < responseJson.length; i++){
-            this.myThreads.push(
-              {id: responseJson[i].id,
-              id_author: responseJson[i].id_author,
-              last_update: responseJson[i].last_update,
-              title: responseJson[i].title,
-              text: responseJson[i].text} );
-          }
-
-        });
+//       let headers = new Headers({ 'Content-Type': 'application/json' });
+//       let options = new RequestOptions({ headers: headers });
+//
+//       var get_threads = { json: {action: "get_threads"} };
+//       // this.http.post('http://127.0.0.2:3001/', JSON.stringify({ action: 'get_threads'}), headers).toPromise()
+//       // this.http.get(url).toPromise()
+//       this.http.get('http://127.0.0.2:3001/get_threads').toPromise()
+//       // this.http.get('http://127.0.0.2:3001/').toPromise()
+//         .then(response => {
+//           this.response2 = response.text();
+//           // console.log('----------------- '+response.text() );
+//
+//           // var aaa = '{[ { "_id" : { "$oid" : "589cd22ac2ef162b33d7a296"} , "id" : "1" , "id_author" : "2" , "last_update" : "1482965255" , "title" : "Lorem ipsum dolor " , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"} , { "_id" : { "$oid" : "589cd248bd966f2cc1c43eaf"} , "id" : "2" , "id_author" : "1" , "last_update" : "1482965259" , "title" : "Lorem ipsum gaude" , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"} , { "_id" : { "$oid" : "589cd264c2ef162b33d7a2d7"} , "id" : "3" , "id_author" : "1" , "last_update" : "1482965321" , "title" : "Consectetur adipiscing " , "text" : "amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation"} , { "_id" : { "$oid" : "589cd28bbd966f2cc1c43f43"} , "id" : "4" , "id_author" : "1" , "last_update" : "1482965339" , "title" : " Laboris nisi ut" , "text" : "ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat"} , { "_id" : { "$oid" : "589cd29dbd966f2cc1c43f58"} , "id" : "5" , "id_author" : "3" , "last_update" : "1482965439" , "title" : " Duis aute irure " , "text" : "ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat"} , { "_id" : { "$oid" : "589cd2c6c2ef162b33d7a528"} , "id" : "6" , "id_author" : "1" , "last_update" : "1482965439" , "title" : "Excepteur sint occaecat " , "text" : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"} , { "_id" : { "$oid" : "589cd2e3bd966f2cc1c4442a"} , "id" : "7" , "id_author" : "2" , "last_update" : "1482965439" , "title" : "Sed ut perspiciatis unde omnis iste" , "text" : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto"} , { "_id" : { "$oid" : "589cd306bd966f2cc1c44444"} , "id" : "8" , "id_author" : "3" , "last_update" : "1482965589" , "title" : "Nemo enim ipsam voluptatem quia" , "text" : "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt"} , { "_id" : { "$oid" : "589cd323bd966f2cc1c4445f"} , "id" : "9" , "id_author" : "4" , "last_update" : "1482965799" , "title" : "Neque porro quisquam est" , "text" : "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem"} , { "_id" : { "$oid" : "589cd34cc2ef162b33d7a5a6"} , "id" : "10" , "id_author" : "3" , "last_update" : "1482966099" , "title" : "At vero eos et accusamus et iusto odio dignissimos " , "text" : "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga"} , { "_id" : { "$oid" : "589cd367c2ef162b33d7a5c2"} , "id" : "11" , "id_author" : "1" , "last_update" : "1482966199" , "title" : "Et harum quidem rerum " , "text" : "Et harum quidem rerum facilis est et expedita distinctio, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga"} , { "_id" : { "$oid" : "589cd3c6c2ef162b33d7a63a"} , "id" : "14" , "id_author" : "1" , "last_update" : "1482966389" , "title" : "officia deserunt mollitia animi" , "text" : "similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."} , { "_id" : { "$oid" : "589cd3ccc2ef162b33d7a640"} , "id" : "15" , "id_author" : "1" , "last_update" : "1482966389" , "title" : "officia deserunt mollitia animi" , "text" : "similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."} , { "_id" : { "$oid" : "589cd3e4bd966f2cc1c4452c"} , "id" : "16" , "id_author" : "2" , "last_update" : "1482966399" , "title" : "similique sunt in deserunt mollitia animi" , "text" : "similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."} , { "_id" : { "$oid" : "589cd384bd966f2cc1c444b1"} , "id" : "12" , "id_author" : "5" , "last_update" : "1482966199" , "title" : "Itaque earum rerum hic tenetur" , "text" : "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat"} , { "_id" : { "$oid" : "589cd3aabd966f2cc1c444e4"} , "id" : "13" , "id_author" : "6" , "last_update" : "1482966339" , "title" : "Blanditiis praesentium" , "text" : "dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident"} ]}'
+//
+//           this.myThreads = [];
+//           let responseJson = JSON.parse(this.response2) ;
+//           let i = 0;
+//           for (i = 0; i < responseJson.length; i++){
+//             this.myThreads.push(
+//               {id: responseJson[i].id,
+//               id_author: responseJson[i].id_author,
+//               last_update: responseJson[i].last_update,
+//               title: responseJson[i].title,
+//               text: responseJson[i].text} );
+//           }
+//
+//         });
       // --------------------------------------------------------------------------------------------
 
       // .subscribe(
