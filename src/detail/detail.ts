@@ -39,8 +39,8 @@ export class Detail implements OnInit, OnDestroy  {
               public http: Http,
               private route: ActivatedRoute) {
     this.myForm = fb.group({
-      'message': this.message,
-      'title': this.title,
+      'message': this.message
+      // 'title': this.title,
     }); // slouzi pro validaci formulare
 
   }
@@ -92,6 +92,7 @@ export class Detail implements OnInit, OnDestroy  {
 
       });
 
+
     //
     // let query = "q={\"id\": \""+this.id+"\"}";
     // let url_mongoDB = 'https://api.mlab.com/api/1/databases/backend_pwa/collections/threads?' + query + '&apiKey=9I-wGKTgFqP8A5IJ6zP_jKl0Phgz5B9r';
@@ -123,6 +124,10 @@ export class Detail implements OnInit, OnDestroy  {
         // }
 
 
+  }
+
+  updateThread(){
+    ;
   }
 
   back(){

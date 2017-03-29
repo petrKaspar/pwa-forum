@@ -304,16 +304,54 @@ app.get('/delete_thread', function (req, res) {
       }
     }
   );
-
-
-
-
-
-
-
-
-
 })
+
+  app.post('/update_thread', function (req, res) {
+    id = JSON.parse(req.body.data).id;
+    last_update = JSON.parse(req.body.data).last_update;
+    text = JSON.parse(req.body.data).text;
+
+    let _idd = "";
+
+    var url_mongoDB = 'https://api.mlab.com/api/1/databases/backend_pwa/collections/threads?apiKey='+apiKey;
+    request.get(
+      url_mongoDB,
+      function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          console.log(body)
+          body = JSON.parse(body)
+          console.log(body[0].text)
+          for (let i = 0; i < body.length; i++) {
+            if (id == body[i].id) {
+              _idd = body[i]._id.$oid
+              console.log("============== "+_idd+" ==============")
+
+
+              url_mongoDB = 'https://api.mlab.com/api/1/databases/backend_pwa/collections/threads/' + _idd + '?apiKey=' + apiKey;
+              var newThread = { json: { $set:{
+                last_update: last_update,
+                text: text} }};
+
+              console.log(newThread);
+              request.put(
+                url_mongoDB, newThread,
+                function (error, response, body) {
+                  if (!error && response.statusCode == 200) {
+                    res.statusCode = 200;
+                    res.setHeader('Content-Type', 'application/json');
+                    res.setHeader('Access-Control-Allow-Origin', '*');
+                    res.end(JSON.stringify(body));
+                  }
+                }
+              );
+            }
+          }
+        }
+      }
+    );
+  })
+
+
 // app.get('/', function (req, res) {
 //   res.send('Funguje!');
 // })

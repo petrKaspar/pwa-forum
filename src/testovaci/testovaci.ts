@@ -128,19 +128,19 @@ export class Testovaci {
     //   });
     //+++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++
-    var json = JSON.stringify({
-      user: 'petr',
-      passw: '12345'
-    });
-    var params = 'data=' + json;
-    var header = new Headers();
-    header.append('Content-type', 'application/x-www-form-urlencoded');
-
-    this._http.post("http://127.0.0.2:3001/get_one_user", params, {headers:header} )//'data='+JSON.stringify(jj)
-      .toPromise()
-      .then((response) => {
-        this.getPromiseData = response.text();
-      });
+    // var json = JSON.stringify({
+    //   user: 'petr',
+    //   passw: '12345'
+    // });
+    // var params = 'data=' + json;
+    // var header = new Headers();
+    // header.append('Content-type', 'application/x-www-form-urlencoded');
+    //
+    // this._http.post("http://127.0.0.2:3001/get_one_user", params, {headers:header} )//'data='+JSON.stringify(jj)
+    //   .toPromise()
+    //   .then((response) => {
+    //     this.getPromiseData = response.text();
+    //   });
     //+++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++
     // let params = new URLSearchParams();
@@ -194,6 +194,22 @@ export class Testovaci {
     //   .then((response) => {
     //     this.getPromiseData = response.text();
     //   });
+    //+++++++++++++++++++++++++++++++++++++++++++++++
+    //+++++++++++++++++++++++++++++++++++++++++++++++
+    var json = JSON.stringify({
+      id: '34',
+      last_update: '1238567890',
+      text: 'NOVY TEXT!!! a jeste novější text :)'
+    });
+    var params = 'data=' + json;
+    var header = new Headers();
+    header.append('Content-type', 'application/x-www-form-urlencoded');
+
+    this._http.post("http://127.0.0.2:3001/update_thread", params, {headers:header} )//'data='+JSON.stringify(jj)
+      .toPromise()
+      .then((response) => {
+        this.getPromiseData = response.text();
+      });
     //+++++++++++++++++++++++++++++++++++++++++++++++
   }
   // onGet(){
