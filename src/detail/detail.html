@@ -1,64 +1,56 @@
 <h1>Model-based Form</h1>
-<!--https://scotch.io/tutorials/using-angular-2s-template-driven-forms-->
-<!--<form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)">-->
-<!-- we will place our fields here -->
 
-<!--[formGroup]="myForm" autocomplete="off" novalidate-->
 
-<!--name-->
 <h3>Thread with id {{id}} </h3>
 <div class="forum jumbotron center-block">
   <form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
 
     <table cellspacing="0" cellpadding="0" border="0">
-      <!--<tr>-->
 
-        <!--<div class="form-group">-->
-          <!--<td><label>User:</label></td>-->
-          <!--<td><input type="text" formControlName="firstName"></td>-->
-        <!--</div>-->
-      <!--</tr>-->
-      <!--<tr>-->
-        <!--<div class="form-group">-->
-          <!--<td><label>Thread:</label></td>-->
-          <!--<td><input type="text" formControlName="thread"></td>-->
-        <!--</div>-->
-      <!--</tr>-->
       <tr>
         <div class="form-group">
-          <td><label><i>Title:</i></label></td>
-          <label>{{this.title2}}</label>
+          <td><label><u><i>Title:</i></u></label></td>
+          <label><h3>{{this.title2}}</h3></label>
           <!--<td><input type="text" disabled="disabled" formControlName="firstName"></td>-->
         </div>
       </tr>
       <tr>
         <div class="form-group">
-          <td ><label><i>Last update:</i></label></td>
+          <td ><label><u><i>Last update:</i></u></label></td>
           <td style="width: 200px"><label>{{this.last_update }}</label></td>
           <!--<td><input type="text" disabled="disabled" formControlName="firstName"></td>-->
         </div>
       </tr>
       <tr>
         <div class="form-group">
-          <td><label><i>Owner:</i></label></td>
+          <td><label><u><i>Owner:</i></u></label></td>
           <td><label>{{this.id_author}}</label></td>
           <!--<td><input type="text" disabled="disabled" formControlName="firstName"></td>-->
         </div>
       </tr>
       <tr>
         <div class="form-group">
-          <label><i>Messages:</i></label>
-          <label>{{this.text}}</label>
-          <!--<td><input type="text" disabled="disabled" formControlName="firstName"></td>-->
+          <label ><u><i>Messages:</i></u></label>
+          <div style="margin-bottom: 10px; margin-top: 15px; margin-left: 15px; ">
+
+            <style type="text/css">
+              .aaa{
+                margin-left: 20px;
+              }
+
+              span{
+                margin-left: 20px;
+              }
+
+            </style>
+
+
+            <label [innerHTML]="text"></label>
+          </div>
         </div>
+
       </tr>
 
-      <!--<tr>-->
-        <!--<div class="form-group">-->
-          <!--<td><label>Title:</label></td>-->
-          <!--<td><input size="50" type="text" formControlName="title"></td>-->
-        <!--</div>-->
-      <!--</tr>-->
 
       <tr>
         <div class="form-group">
@@ -79,47 +71,6 @@
     </table>
     <p><a class="btn btn-primary btn-lg" role="button" (click)="back()">Back on main page</a></p>
 
-    <!---->
-    <!--<div>-->
-    <!--<label>Name</label>-->
-    <!--<input formControlName="email" type="email" placeholder="Your email">-->
-    <!--</div>-->
-
-
-    <!--<div>-->
-    <!--<label>Title</label>-->
-    <!--&lt;!&ndash;bind name to ngModel, it's required with minimum 5 characters&ndash;&gt;-->
-    <!--<input type="text"-->
-    <!--name="title" [(ngModel)]="user.name"-->
-    <!--#name="ngModel" required minlength="5">-->
-    <!--&lt;!&ndash;show error only when field is not valid & it's dirty or form submited&ndash;&gt;-->
-    <!--<small [hidden]="name.valid || (name.pristine && !f.submitted)">-->
-    <!--Name is required (minimum 5 characters).-->
-    <!--</small>-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash;adrress group&ndash;&gt;-->
-    <!--<div ngModelGroup="address">-->
-    <!--&lt;!&ndash;street&ndash;&gt;-->
-    <!--<div>-->
-    <!--<label>Street</label>-->
-    <!--<input type="text"-->
-    <!--name="street" [(ngModel)]="user.address.street"-->
-    <!--#street="ngModel" required>-->
-    <!--<small [hidden]="street.valid || (street.pristine && !f.submitted)" class="text-danger">-->
-    <!--Street is required.-->
-    <!--</small>-->
-    <!--</div>-->
-
-    <!--&lt;!&ndash;postcode&ndash;&gt;-->
-    <!--<div>-->
-    <!--<label>Post code</label>-->
-    <!--<input type="text"-->
-    <!--name="postcode" [(ngModel)]="user.address.postcode">-->
-    <!--</div>-->
-    <!--</div>-->
-
-    <!--<button type="submit">Submit</button>-->
 
 
   </form>

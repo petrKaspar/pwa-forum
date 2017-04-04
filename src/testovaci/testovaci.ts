@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 // import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
@@ -28,12 +28,17 @@ const template = require('./testovaci.html');
 // pro moznost pouzivani teto tridy se musi pridat :
 //      import {Testovaci} from "./testovaci";    do    'app.route.ts'
 //      { path: 'testovaci', component: Testovaci },    do    'app.route.ts'
-export class Testovaci {
+export class Testovaci implements OnInit{
   getData:string;
   getPromiseData:string;
   postData:string;
 
-
+  ngOnInit() {
+    let u = localStorage.getItem('currentUser');
+    if (u == null){
+      this.router.navigate(['login']);
+    }
+  }
 
   constructor(private router: Router, private _http:Http) { // private _httpService:HTTPTestService,
   }
@@ -196,20 +201,20 @@ export class Testovaci {
     //   });
     //+++++++++++++++++++++++++++++++++++++++++++++++
     //+++++++++++++++++++++++++++++++++++++++++++++++
-    var json = JSON.stringify({
-      id: '34',
-      last_update: '1238567890',
-      text: 'NOVY TEXT!!! a jeste novější text :)'
-    });
-    var params = 'data=' + json;
-    var header = new Headers();
-    header.append('Content-type', 'application/x-www-form-urlencoded');
-
-    this._http.post("http://127.0.0.2:3001/update_thread", params, {headers:header} )//'data='+JSON.stringify(jj)
-      .toPromise()
-      .then((response) => {
-        this.getPromiseData = response.text();
-      });
+    // var json = JSON.stringify({
+    //   id: '34',
+    //   last_update: '1238567890',
+    //   text: 'NOVY TEXT!!! a jeste novější text :)'
+    // });
+    // var params = 'data=' + json;
+    // var header = new Headers();
+    // header.append('Content-type', 'application/x-www-form-urlencoded');
+    //
+    // this._http.post("http://127.0.0.2:3001/update_thread", params, {headers:header} )//'data='+JSON.stringify(jj)
+    //   .toPromise()
+    //   .then((response) => {
+    //     this.getPromiseData = response.text();
+    //   });
     //+++++++++++++++++++++++++++++++++++++++++++++++
   }
   // onGet(){

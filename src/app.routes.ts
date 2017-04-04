@@ -23,7 +23,7 @@ export const routes: Routes = [
   //{ path: 'home',   component: Home },
 
   // { path: 'forumHome',   component: Forum, canActivate: [AuthGuard] },
-  { path: 'forumHome',   component: Forum},
+  { path: 'forumHome',   component: Forum },
   { path: 'detail/:id',   component: Detail},
   { path: 'forumNew',   component: ForumNew},
   // { path: 'HTTPTestComponent',   component: HTTPTestComponent},

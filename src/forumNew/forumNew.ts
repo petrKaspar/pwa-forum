@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
@@ -19,7 +19,7 @@ const template = require('./forumNew.html');
 //      { path: 'forum', component: Forum },    do    'app.route.ts'
 //  Aby bylo mozne oznacovat formular '[formGroup]="myForm"' a jednotlive prvky v nem 'formControlName="firstName",
 //    musi se pridat 'imports: [ReactiveFormsModule],' do 'app.module.ts'
-export class ForumNew {
+export class ForumNew implements OnInit{
   myForm: FormGroup;
   currentUser: User;
 
@@ -27,6 +27,14 @@ export class ForumNew {
   title = new FormControl('', Validators.required);
   message = new FormControl('', Validators.required);
   thread = new FormControl('', Validators.required);
+
+
+  ngOnInit() {
+    let u = localStorage.getItem('currentUser');
+    if (u == null){
+      this.router.navigate(['login']);
+    }
+  }
 
   constructor(fb: FormBuilder, private router: Router, public http: Http,) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));

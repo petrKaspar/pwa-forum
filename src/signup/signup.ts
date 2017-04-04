@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
+import {Http, Headers} from '@angular/http';
 import { contentHeaders } from '../common/headers';
 
 const styles   = require('./signup.css');
@@ -16,19 +16,27 @@ export class Signup {
   }
 
   signup(event, username, password) {
-    event.preventDefault();
-    let body = JSON.stringify({ username, password });
-    this.http.post('http://localhost:3001/users', body, { headers: contentHeaders })
-      .subscribe(
-        response => {
-          localStorage.setItem('id_token', response.json().id_token);
-          this.router.navigate(['home']);
-        },
-        error => {
-          alert(error.text());
-          console.log(error.text());
-        }
-      );
+
+    var json = JSON.stringify({
+      user: username,
+      password: password
+    });
+    var params = 'data=' + json;
+    var header = new Headers();
+    header.append('Content-type', 'application/x-www-form-urlencoded');
+
+    this.http.post("http://127.0.0.2:3001/add_user", params, {headers:header} )//'data='+JSON.stringify(jj)
+      .toPromise()
+      .then((response) => {
+
+        this.router.navigate(['login']);
+
+        // if (JSON.parse(response.text()).error){
+        //
+        // }else {
+        // }
+      });
+
   }
 
   login(event) {
