@@ -40,7 +40,8 @@ export class Forum implements OnInit{
   userLogName: string;
   userLogID: string;
   selectedThread: Thread;
-  url: string = 'http://private-bd1632-forum13.apiary-mock.com/getThreads';
+  // url: string = 'http://private-bd1632-forum13.apiary-mock.com/getThreads';
+  url: string = 'http://forumpwa.eu-2.evennode.com';
 
    // public response:string ;
   isDataAvailable:boolean = false;

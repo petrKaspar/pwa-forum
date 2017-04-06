@@ -197,15 +197,7 @@ app.post('/add_user', function (req, res) {
 })
 
 app.post('/add_thread', function (req, res) {
-  // TODO predelat pro thread; vracet statuskod podle toho, zda uz zaznam v databazi existuje,
-  // nebo se vytvori novy
-  /*
-   {  "action": "add_thread",
-   "id_author": "josef",
-   "last_update": "josef",
-   "title": "josef",
-   "text": "josef" }
-   */
+
   id_author = JSON.parse(req.body.data).id_author;
   last_update = JSON.parse(req.body.data).last_update;
   title = JSON.parse(req.body.data).title;
@@ -252,10 +244,6 @@ app.post('/add_thread', function (req, res) {
 })
 
 app.get('/delete_thread', function (req, res) {
-  console.log('===============')
-  // console.log("detele thread with ID "+req.param('id'));
-  console.log(req.param('id'));
-  console.log('===============')
 
   let _idd = "";
 
@@ -274,8 +262,6 @@ app.get('/delete_thread', function (req, res) {
 
             var url_mongoDB = 'https://api.mlab.com/api/1/databases/backend_pwa/collections/threads/'+_idd+'?apiKey='+apiKey;
             var deleteThread = {json:"[]"};
-            console.log(url_mongoDB)
-            console.log(deleteThread)
             request.delete(
               url_mongoDB,
               function (error, response, body) {
@@ -289,18 +275,9 @@ app.get('/delete_thread', function (req, res) {
               }
             );
 
-
-            // res.statusCode = 200;
-            // res.setHeader('Content-Type', 'application/json');
-            // res.setHeader('Access-Control-Allow-Origin', '*');
-            // res.end(JSON.stringify(body[i]));
-            // return;
           }
         }
-        // res.statusCode = 200;
-        // res.setHeader('Content-Type', 'application/json');
-        // res.setHeader('Access-Control-Allow-Origin', '*');
-        // res.end('{}');
+
       }
     }
   );
@@ -332,7 +309,6 @@ app.get('/delete_thread', function (req, res) {
                 last_update: last_update,
                 text: text} }};
 
-              console.log(newThread);
               request.put(
                 url_mongoDB, newThread,
                 function (error2, response2, body2) {
@@ -352,20 +328,9 @@ app.get('/delete_thread', function (req, res) {
   })
 
 
-// app.get('/', function (req, res) {
-//   res.send('Funguje!');
-// })
-// app.get('/', function (req, res) {
-//   res.send('Funguje!');
-// })
-// app.get('/', function (req, res) {
-//   res.send('Funguje!');
-// })
-
-
 
 // server.listen(3001, "127.0.0.2");
-var server = app.listen(3001,  "127.0.0.2", function () {
+var server = app.listen(process.env.PORT, "0.0.0.0",  function () {
   var host = server.address().address
   var port = server.address().port
 
