@@ -25,7 +25,7 @@ export class Signup {
     var header = new Headers();
     header.append('Content-type', 'application/x-www-form-urlencoded');
 
-    this.http.post("http://127.0.0.2:3001/add_user", params, {headers:header} )//'data='+JSON.stringify(jj)
+    this.http.post("http://pwa.eu-2.evennode.com/add_user", params, {headers:header} )//'data='+JSON.stringify(jj)
       .toPromise()
       .then((response) => {
 

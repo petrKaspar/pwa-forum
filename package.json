@@ -13,6 +13,10 @@
     "build": "npm run build-css && npm run build-js",
     "prestart": "npm install"
   },
+  "engines": {
+    "node": "6.10.0",
+    "npm": "3.10.10"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/auth0/angular2-authentication-sample.git"

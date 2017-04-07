@@ -78,7 +78,7 @@ export class Forum implements OnInit{
 
   getThreads() {
 
-    this.http.get("http://127.0.0.2:3001/get_threads")
+    this.http.get("http://pwa.eu-2.evennode.com/get_threads")
       .toPromise()
       .then((response) => {
         // this.getData = response.text();
@@ -104,7 +104,7 @@ export class Forum implements OnInit{
   deleteThread(id): void {
     let params = new URLSearchParams();
     params.set('id', id);
-    this.http.get("http://127.0.0.2:3001/delete_thread", { search: params })
+    this.http.get("http://pwa.eu-2.evennode.com/delete_thread", { search: params })
       .toPromise()
       .then((response) => {
         this.response2 = response.text();

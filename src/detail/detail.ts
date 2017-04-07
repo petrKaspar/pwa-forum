@@ -67,7 +67,7 @@ export class Detail implements OnInit, OnDestroy  {
     this.testtext = '<h1>html...</h1>';
     let params = new URLSearchParams();
     params.set('id', this.id.toString());
-    this.http.get("http://127.0.0.2:3001/get_one_thread", { search: params })//, { search: params }
+    this.http.get("http://pwa.eu-2.evennode.com/get_one_thread", { search: params })//, { search: params }
       .toPromise()
       .then((response) => {
         let responseJson = JSON.parse(response.text()) ;
@@ -78,7 +78,7 @@ export class Detail implements OnInit, OnDestroy  {
 
         params = new URLSearchParams();
         params.set('id', responseJson.id_author);
-        this.http.get("http://127.0.0.2:3001/get_userByID", { search: params })
+        this.http.get("http://pwa.eu-2.evennode.com/get_userByID", { search: params })
           .toPromise()
           .then((response2) => {
             this.id_author = JSON.parse(response2.text())[0].user;
@@ -100,7 +100,7 @@ export class Detail implements OnInit, OnDestroy  {
     var header = new Headers();
     header.append('Content-type', 'application/x-www-form-urlencoded');
 
-    this.http.post("http://127.0.0.2:3001/update_thread", params, {headers:header} )//'data='+JSON.stringify(jj)
+    this.http.post("http://pwa.eu-2.evennode.com/update_thread", params, {headers:header} )//'data='+JSON.stringify(jj)
       .toPromise()
       .then((response) => {
 

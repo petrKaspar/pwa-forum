@@ -34,7 +34,7 @@ export class Login {
     header.append('Content-type', 'application/x-www-form-urlencoded');
 
     let id_user;
-    this.http.post("http://127.0.0.2:3001/get_one_user", params, {headers:header} )//'data='+JSON.stringify(jj)
+    this.http.post("http://pwa.eu-2.evennode.com/get_one_user", params, {headers:header} )//'data='+JSON.stringify(jj)
       .toPromise()
       .then((response) => {
       if (response.text().length != 0){
